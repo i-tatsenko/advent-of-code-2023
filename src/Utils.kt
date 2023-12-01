@@ -19,3 +19,21 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
  * The cleaner shorthand for printing output.
  */
 fun Any?.println() = println(this)
+
+class PrefixTreeNode<T>() {
+    var value: T? = null
+    private val children: MutableMap<Char, PrefixTreeNode<T>> = hashMapOf()
+
+    fun add(key: String, v: T) {
+        if (key.isEmpty()) this.value = v
+        else {
+            val child = children.getOrDefault(key[0], PrefixTreeNode())
+            child.add(key.substring(1), v)
+            children[key[0]] = child
+        }
+    }
+
+    fun node(ch: Char): PrefixTreeNode<T>? {
+        return children[ch]
+    }
+}
