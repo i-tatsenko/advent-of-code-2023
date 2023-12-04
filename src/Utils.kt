@@ -37,3 +37,5 @@ class PrefixTreeNode<T>() {
         return children[ch]
     }
 }
+
+data class Point(val x: Int, val y: Int)
