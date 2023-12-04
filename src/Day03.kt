@@ -9,14 +9,6 @@ class SymbolLocation {
 
     fun hasSymbolAround(x: Int, range: IntRange): Boolean {
         return adjacentSymbols(x, range).any()
-//        val prevRow = map.getOrDefault(x - 1, emptySet())
-//        val nextRow = map.getOrDefault(x + 1, emptySet())
-//        if (prevRow.contains(range.first - 1) || prevRow.contains(range.last + 1) || range.any { prevRow.contains(it) })
-//            return true
-//        if (nextRow.contains(range.first - 1) || nextRow.contains(range.last + 1) || range.any { nextRow.contains(it) })
-//            return true
-//        val thisRow = map.getOrDefault(x, emptySet())
-//        return thisRow.contains(range.first - 1) || thisRow.contains(range.last + 1)
     }
 
     fun adjacentSymbols(x: Int, range: IntRange) = sequence {
