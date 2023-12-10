@@ -38,4 +38,14 @@ class PrefixTreeNode<T>() {
     }
 }
 
+fun numbersL(s: String) = sequence {
+    val regex = "-?\\d+".toRegex()
+    yieldAll(regex.findAll(s).map { it.value.toLong() })
+}
+
+fun numbers(s: String) = sequence {
+    yieldAll(numbersL(s).map { it.toInt() })
+}
+
 data class Point(val x: Int, val y: Int)
+data class PointL(val x: Long, val y: Long)
