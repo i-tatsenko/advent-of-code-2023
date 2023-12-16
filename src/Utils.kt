@@ -51,8 +51,9 @@ data class Point(val x: Int, val y: Int) {
     operator fun minus(other: Point) = Point(x - other.x, y - other.y)
     operator fun invoke(toX: Int, toY: Int) = Point(x + toX, y + toY)
     operator fun plus(other: Point) = Point(x + other.x, y + other.y)
-
     operator fun times(v: Int) = Point(x * v, y * v)
+
+    fun inBounds(xBound: Int, yBound: Int): Boolean = x in 0..<xBound && y in 0..< yBound
 }
 
 data class PointL(val x: Long, val y: Long)
