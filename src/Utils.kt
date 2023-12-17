@@ -47,13 +47,34 @@ fun numbers(s: String) = sequence {
     yieldAll(numbersL(s).map { it.toInt() })
 }
 
-data class Point(val x: Int, val y: Int) {
+data class Point(val x: Int, val y: Int) : Comparable<Point> {
     operator fun minus(other: Point) = Point(x - other.x, y - other.y)
     operator fun invoke(toX: Int, toY: Int) = Point(x + toX, y + toY)
     operator fun plus(other: Point) = Point(x + other.x, y + other.y)
     operator fun times(v: Int) = Point(x * v, y * v)
 
-    fun inBounds(xBound: Int, yBound: Int): Boolean = x in 0..<xBound && y in 0..< yBound
+    fun inBounds(xBound: Int, yBound: Int): Boolean = x in 0..<xBound && y in 0..<yBound
+    override fun compareTo(other: Point): Int {
+        val thisDist = x + y
+        val otherDist = other.x + other.y
+        if (thisDist - otherDist != 0) return thisDist - otherDist
+        return x - other.x
+    }
 }
 
 data class PointL(val x: Long, val y: Long)
+enum class Dir(private val mask: Point) {
+    UP(Point(-1, 0)),
+    DOWN(Point(1, 0)),
+    LEFT(Point(0, -1)),
+    RIGHT((Point(0, 1)));
+
+    fun next(p: Point): Point = p + mask
+
+    fun isOpposite(other: Dir) = when(this) {
+        UP -> other == DOWN
+        DOWN -> other == UP
+        LEFT -> other == RIGHT
+        RIGHT -> other == LEFT
+    }
+}

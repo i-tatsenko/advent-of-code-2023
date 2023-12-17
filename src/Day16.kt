@@ -1,15 +1,6 @@
 import java.util.LinkedList
 import kotlin.math.max
 
-enum class Dir(private val mask: Point) {
-    UP(Point(-1, 0)),
-    DOWN(Point(1, 0)),
-    LEFT(Point(0, -1)),
-    RIGHT((Point(0, 1)));
-
-    fun next(p: Point): Point = p + mask
-}
-
 data class Vector(val p: Point, val d: Dir)
 
 class MapCell(
