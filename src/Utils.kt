@@ -62,7 +62,12 @@ data class Point(val x: Int, val y: Int) : Comparable<Point> {
     }
 }
 
-data class PointL(val x: Long, val y: Long)
+data class PointL(val x: Long, val y: Long) {
+    operator fun plus(other: PointL) = PointL(x + other.x, y + other.y)
+    operator fun plus(other: Point) = PointL(x + other.x, y + other.y)
+    operator fun times(v: Int) = PointL(x * v, y * v)
+
+}
 enum class Dir(private val mask: Point) {
     UP(Point(-1, 0)),
     DOWN(Point(1, 0)),
@@ -70,6 +75,8 @@ enum class Dir(private val mask: Point) {
     RIGHT((Point(0, 1)));
 
     fun next(p: Point): Point = p + mask
+    fun next(p: Point, moves: Int) = p + (mask * moves)
+    fun next(p: PointL, moves: Int) = p + (mask * moves)
 
     fun isOpposite(other: Dir) = when(this) {
         UP -> other == DOWN
@@ -78,3 +85,16 @@ enum class Dir(private val mask: Point) {
         RIGHT -> other == LEFT
     }
 }
+
+fun gcd(x: Int, y: Int) = gcd(x.toLong(), y.toLong()).toInt()
+
+fun gcd(x: Long, y: Long): Long {
+    val (min, max) = if (x < y) x to y else y to x
+    return when(min) {
+        0L -> max
+        else -> gcd(min, max % min)
+    }
+}
+
+fun lcm(x: Long, y: Long) = x * (y / gcd(x, y))
+
