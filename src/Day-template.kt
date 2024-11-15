@@ -13,4 +13,5 @@ fun main() {
     val input = readInput("Day01")
     part1(input).println()
     part2(input).println()
+
 }
