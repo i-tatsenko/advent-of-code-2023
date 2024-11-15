@@ -86,6 +86,9 @@ enum class Dir(private val mask: Point) {
     }
 }
 
+/**
+ * usefull kotlin doc
+ */
 fun gcd(x: Int, y: Int) = gcd(x.toLong(), y.toLong()).toInt()
 
 fun gcd(x: Long, y: Long): Long {
